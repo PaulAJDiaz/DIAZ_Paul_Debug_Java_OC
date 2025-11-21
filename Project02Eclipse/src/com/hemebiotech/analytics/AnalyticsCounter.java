@@ -1,40 +1,40 @@
 package com.hemebiotech.analytics;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
-public class AnalyticsCounter {
-	private static int headacheCount = 0;
-	private static int rashCount = 0;
-	private static int pupilCount = 0;
+public abstract class AnalyticsCounter {
 	
 	public static void main(String args[]) throws Exception {
-		BufferedReader reader = new BufferedReader (new FileReader("symptoms.txt"));
+
+        ArrayList<String> listSymptoms = new ArrayList<String>();
+        BufferedReader reader = new BufferedReader (new FileReader("C:\\Users\\dieze\\Videos\\OC_Projet\\P2\\DIAZ_Paul_Debug_Java_OC\\Project02Eclipse\\symptoms.txt"));
 		String line = reader.readLine();
+        TreeMap<String, Integer> symptoms = new TreeMap<String, Integer>();
 
-		int i = 0;
-		int headCount = 0;
 		while (line != null) {
-			i++;
-			System.out.println("symptom from file: " + line);
-			if (line.equals("headache")) {
-				headCount++;
-				System.out.println("number of headaches: " + headCount);
-			}
-			else if (line.equals("rush")) {
-				rashCount++;
-			}
-			else if (line.contains("pupils")) {
-				pupilCount++;
-			}
+            listSymptoms.add(line);
+            line = reader.readLine();
 
-			line = reader.readLine();
-		}
-		FileWriter writer = new FileWriter ("result.out");
-		writer.write("headache: " + headacheCount + "\n");
-		writer.write("rash: " + rashCount + "\n");
-		writer.write("dialated pupils: " + pupilCount + "\n");
+        }
+        for(String symptom : listSymptoms) {
+            if(symptoms.containsKey(symptom)) {
+                symptoms.put(symptom, symptoms.get(symptom) + 1);
+            }else{
+                symptoms.put(symptom, 1);
+            }
+        }
+        FileWriter fileWriter = new FileWriter ("result.out");
+        BufferedWriter writer = new BufferedWriter(fileWriter);
+
+        for(Map.Entry<String, Integer> entry : symptoms.entrySet()) {
+            writer.write(entry.getKey() + ": " + entry.getValue()+ "\n" );
+        }
 		writer.close();
 	}
 }

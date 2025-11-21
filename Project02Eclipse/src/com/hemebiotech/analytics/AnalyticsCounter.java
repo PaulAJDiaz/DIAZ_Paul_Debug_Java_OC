@@ -35,6 +35,6 @@ public abstract class AnalyticsCounter {
         for(Map.Entry<String, Integer> entry : symptoms.entrySet()) {
             writer.write(entry.getKey() + ": " + entry.getValue()+ "\n" );
         }
-		writer.close();
+        writer.close();
 	}
 }

@@ -1,9 +1,9 @@
 package com.hemebiotech.analytics;
 
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface ISymptomReader {
 
-    ArrayList<String> GetSymptoms ();
+   List<String> GetSymptoms ();
 }

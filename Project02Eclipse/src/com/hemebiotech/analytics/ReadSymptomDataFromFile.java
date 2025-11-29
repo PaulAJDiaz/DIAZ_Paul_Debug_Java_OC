@@ -4,31 +4,28 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ReadSymptomDataFromFile implements ISymptomReader {
 
-	private String filepath;
+	 private String filepath;
 
-	/**
-	 *
-	 * @param filepath a full or partial path to file with symptom strings in it, one per line
-	 */
 	public ReadSymptomDataFromFile (String filepath) {
-		this.filepath = filepath;
-	}
+        this.filepath = filepath;
+    }
 
 	@Override
-	public void GetSymptoms() {
-		ArrayList<String> GetSymptoms = new ArrayList<String>();
+	public List<String> GetSymptoms() {
+		ArrayList<String> result = new ArrayList<String>();
 
 		if (filepath != null) {
 			try {
-                BufferedReader reader = new BufferedReader (new FileReader("C:\\Users\\dieze\\Videos\\OC_Projet\\P2\\DIAZ_Paul_Debug_Java_OC\\Project02Eclipse\\symptoms.txt"));
+                BufferedReader reader = new BufferedReader (new FileReader(filepath));
 				String line = reader.readLine();
 
                 while (line != null) {
-                    GetSymptoms.add(line);
+                    result.add(line);
                     line = reader.readLine();
 
                 }
@@ -38,7 +35,8 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
 			}
 		}
 
-		return ;
+        return result;
 	}
+ }
 
-}
+

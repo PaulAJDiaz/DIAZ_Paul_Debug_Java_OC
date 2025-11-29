@@ -2,28 +2,30 @@ package com.hemebiotech.analytics;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Map;
-import java.util.TreeMap;
 
-public abstract class WriteSymptomDataToFile implements ISymptomWriter {
-    abstract ArrayList<String> GetSymptoms();
-    TreeMap<String, Integer> writeSymptoms = new TreeMap<String, Integer>();
+public class WriteSymptomDataToFile implements ISymptomWriter {
 
-     for(String symptom : GetSymptoms) {
-        if(writeSymptoms.containsKey(symptom)) {
-            writeSymptoms.put(symptom, writeSymptoms.get(symptom) + 1);
-        }else{
-            writeSymptoms.put(symptom, 1);
+    public void writeSymptoms(Map<String, Integer> symptoms) {
+
+        try {
+            FileWriter fileWriter = new FileWriter("result.out", false);
+            BufferedWriter writer = new BufferedWriter(fileWriter);
+
+            for (Map.Entry<String, Integer> symptom : symptoms.entrySet()) {
+                System.out.println(symptom.getKey() + ": " + symptom.getValue());
+                writer.write(symptom.getKey() + ": " + symptom.getValue() + "\n");
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-    }
-    FileWriter fileWriter = new FileWriter ("result.out");
-    BufferedWriter writer = new BufferedWriter(fileWriter);
 
-        for(Map.Entry<String, Integer> entry ; writeSymptoms.entrySet()) {
-        writer.write(entry.getKey() + ": " + entry.getValue()+ "\n" );
     }
-        writer.close();
+
 }
+
+
 
 

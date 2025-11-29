@@ -10,9 +10,19 @@ import java.util.TreeMap;
 
 public class AnalyticsCounter {
 
+    private ISymptomReader symptomReader;
+    private ISymptomWriter symptomWriter;
+
+    public AnalyticsCounter(ISymptomReader reader, ISymptomWriter writer) {
+        this.symptomReader = reader;
+        this.symptomWriter = writer;
+    }
+    public List <String> getSymptoms () {return this.symptomReader.GetSymptoms();};
+    public void writeSymptoms (TreeMap<String, Integer> symptoms) { this.symptomWriter.writeSymptoms(symptoms);};
+
+
     public static TreeMap<String, Integer> countSymptoms(List<String> getSymptoms) {
         TreeMap<String, Integer> countSymptomsMap = new TreeMap<String, Integer>();
-
 
         for(String symptom : getSymptoms) {
             if(countSymptomsMap.containsKey(symptom)) {
